@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container greeting text-center">
-      <p>Contractors can use this tool to look up the status of their active permits.</p>
+      <p>Contractors can use this tool to look up the statuses of their active permits.</p>
       <p>
         <b>NOTE:</b> Actions made in the last 24 hours may not be
         reflected on site
@@ -49,9 +49,18 @@ export default {
 </script>
 
 <style>
-#app {
-  width: 75%;
-  margin: auto;
+@media (min-width: 400px) {
+  #app {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+@media (min-width: 550px) {
+  #app {
+    width: 75%;
+    margin: auto;
+  }
 }
 
 .greeting {

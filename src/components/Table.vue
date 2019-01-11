@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <table role="grid" class="table stack text-center">
+    <table role="grid" class="table text-center">
       <tbody>
         <tr>
           <th scope="col">Permit Number</th>
@@ -31,4 +31,22 @@ export default {
   props: ["permits"]
 };
 </script>
+
+<style scoped>
+@media (min-width: 400px) {
+  table {
+    table-layout: fixed;
+  }
+  td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+  .table {
+    overflow-x: auto;
+    display: block;
+  }
+}
+</style>
+
 
