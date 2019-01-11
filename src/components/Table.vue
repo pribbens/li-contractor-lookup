@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 400px) {
+@media (max-width: 400px) {
   table {
     table-layout: fixed;
   }
