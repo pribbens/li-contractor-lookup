@@ -63,6 +63,13 @@ export default {
   }
 }
 
+@media (min-width: 1100px) {
+  #app {
+    width: 60%;
+    margin: auto;
+  }
+}
+
 .greeting {
   padding-top: 2em;
   width: 50%;
