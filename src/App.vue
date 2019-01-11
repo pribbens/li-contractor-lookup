@@ -1,28 +1,66 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container greeting text-center">
+      <p>Contractors can use this tool to look up the status of their active permits.</p>
+      <p>
+        <b>NOTE:</b> Actions made in the last 24 hours may not be
+        reflected on site
+      </p>
+    </div>
+    <appControls></appControls>
+    <appTable :permits="permits" class="table"></appTable>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
+import moment from "moment";
+
+import { DATE_FORMAT, REST_SERVICE_URL } from "./utils";
+import Controls from "./components/Controls";
+import Table from "./components/Table";
 
 export default {
-  name: 'app',
+  name: "app",
+  data() {
+    return {
+      permits: []
+    };
+  },
+  methods: {
+    async fetchData() {
+      const response = await axios.get(REST_SERVICE_URL);
+      this.permits = response.data.features.map(permit => {
+        permit.attributes.ISSUEDATE = moment(permit.attributes.ISSUEDATE)
+          .utc()
+          .format(DATE_FORMAT);
+        return permit.attributes;
+      });
+    }
+  },
+  beforeMount() {
+    this.fetchData();
+  },
   components: {
-    HelloWorld
+    appControls: Controls,
+    appTable: Table
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 75%;
+  margin: auto;
+}
+
+.greeting {
+  padding-top: 2em;
+  width: 50%;
+  margin: auto;
+}
+
+.table {
+  padding-bottom: 4em;
 }
 </style>
