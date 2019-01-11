@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <table role="grid" class="table text-center">
+    <table v-if="permits.length > 0" role="grid" class="table text-center">
       <tbody>
         <tr>
           <th scope="col">Permit Number</th>
@@ -17,7 +17,9 @@
           <td>{{ permit.STATUS }}</td>
           <td>{{ permit.ISSUEDATE }}</td>
           <td>
-            <a :href="permit.PERMITNUMBER">Link</a>
+            <router-link
+              :to="{ name: 'permit', params: { id: permit.OBJECTID, permit: permit } }"
+            >Link</router-link>
           </td>
         </tr>
       </tbody>
