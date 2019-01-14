@@ -68,9 +68,11 @@ export default {
     },
     submitContractorSearch() {
       this.$emit("contractorSearch", this.cleanText(this.contractor));
+      this.contractor = "";
     },
     submitPermitNumberSearch() {
       this.$emit("permitNumberSearch", this.cleanText(this.permitNumber));
+      this.permitNumber = "";
     }
   }
 };

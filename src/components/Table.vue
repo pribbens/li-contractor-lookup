@@ -1,5 +1,17 @@
 <template>
   <div>
+    <table v-show="message && !loading" class="service-update">
+      <tr
+        scope="row"
+        :class="{'service-update--critical': permits.length == 0,  'service-update': permits.length > 0}"
+      >
+        <td class="pam">
+          <span
+            class="text-center message"
+          >Your search resulted in {{ permits.length }} active permits.</span>
+        </td>
+      </tr>
+    </table>
     <appControls @contractorSearch="contractorSearch" @permitNumberSearch="permitNumberSearch"></appControls>
     <div class="container">
       <table v-show="permits.length > 0" role="grid" class="table text-center">
@@ -10,18 +22,20 @@
             <th scope="col">Address</th>
             <th scope="col">Status</th>
             <th scope="col">Issue Date</th>
-            <th scope="col">Permit Description</th>
           </tr>
-          <tr v-for="permit in permits" :key="permit.id">
+          <router-link
+            v-for="permit in permits"
+            :key="permit.id"
+            :to="{ name: 'permit', params: { id: permit.PERMITNUMBER } }"
+            tag="tr"
+            style="cursor:pointer;"
+          >
             <td>{{ permit.PERMITNUMBER }}</td>
             <td>{{ permit.APPLICATIONTYPE }}</td>
             <td>{{ permit.ADDRESS }}</td>
             <td>{{ permit.STATUS }}</td>
             <td>{{ permit.ISSUEDATE }}</td>
-            <td>
-              <router-link :to="{ name: 'permit', params: { id: permit.PERMITNUMBER } }">Link</router-link>
-            </td>
-          </tr>
+          </router-link>
         </tbody>
       </table>
       <div class="text-center">
@@ -48,6 +62,7 @@ export default {
     return {
       loading: false,
       allowLoadMore: true,
+      message: false,
       permits: [],
       whereClause: encodeURI("where=1=1"),
       defaultQueryParams: {
@@ -78,6 +93,9 @@ export default {
         url += queryParam;
       }
       return url;
+    },
+    permitCount() {
+      return this.permits.length;
     }
   },
   methods: {
@@ -107,6 +125,7 @@ export default {
       this.permits = [];
       this.fetchPermits();
       this.allowLoadMore = false;
+      this.message = true;
     },
     permitNumberSearch(permitNumber) {
       this.whereClause =
@@ -116,6 +135,7 @@ export default {
       this.permits = [];
       this.fetchPermits();
       this.allowLoadMore = false;
+      this.message = true;
     }
   },
   beforeMount() {
@@ -141,6 +161,10 @@ export default {
     overflow-x: auto;
     display: block;
   }
+}
+
+.message {
+  margin-left: 33.33%;
 }
 </style>
 
