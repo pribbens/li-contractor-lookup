@@ -17,9 +17,7 @@
           <td>{{ permit.STATUS }}</td>
           <td>{{ permit.ISSUEDATE }}</td>
           <td>
-            <router-link
-              :to="{ name: 'permit', params: { id: permit.OBJECTID, permit: permit } }"
-            >Link</router-link>
+            <router-link :to="{ name: 'permit', params: { id: permit.PERMITNUMBER } }">Link</router-link>
           </td>
         </tr>
       </tbody>
@@ -61,7 +59,7 @@ export default {
       return queryParams;
     },
     queryUrl() {
-      let url = BASE_REST_SERVICE_URL.slice();
+      let url = BASE_REST_SERVICE_URL.slice() + "where=1%3D1";
       for (let key in this.queryParams) {
         const queryParam = "&" + key + "=" + this.queryParams[key];
         url += queryParam;
