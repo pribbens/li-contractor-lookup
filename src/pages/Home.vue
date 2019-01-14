@@ -8,39 +8,16 @@
       </p>
     </div>
     <appControls></appControls>
-    <appTable :permits="permits" class="table"></appTable>
+    <appTable class="table"></appTable>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import moment from "moment";
-
-import { DATE_FORMAT, REST_SERVICE_URL } from "../utils";
 import Controls from "../components/Controls";
 import Table from "../components/Table";
 
 export default {
   name: "app",
-  data() {
-    return {
-      permits: []
-    };
-  },
-  methods: {
-    async fetchPermits() {
-      const response = await axios.get(REST_SERVICE_URL);
-      this.permits = response.data.features.map(permit => {
-        permit.attributes.ISSUEDATE = moment(permit.attributes.ISSUEDATE)
-          .utc()
-          .format(DATE_FORMAT);
-        return permit.attributes;
-      });
-    }
-  },
-  beforeMount() {
-    this.fetchPermits();
-  },
   components: {
     appControls: Controls,
     appTable: Table

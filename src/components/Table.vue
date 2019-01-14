@@ -24,13 +24,73 @@
         </tr>
       </tbody>
     </table>
+    <div class="text-center">
+      <a v-show="permits.length > 0 && allowLoadMore" v-on:click.prevent="fetchPermits">Load More...</a>
+    </div>
+    <h3 v-show="loading && !allowLoadMore" class="text-center">Loading please wait...</h3>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import moment from "moment";
+
+import { DATE_FORMAT, BASE_REST_SERVICE_URL } from "../utils";
+
 export default {
   name: "Table",
-  props: ["permits"]
+  data() {
+    return {
+      loading: false,
+      allowLoadMore: true,
+      permits: [],
+      defaultQueryParams: {
+        outFields: "*",
+        orderByFields: "issuedate+desc",
+        resultOffset: null,
+        resultRecordCount: 50,
+        sqlFormat: "none",
+        f: "pjson"
+      }
+    };
+  },
+  computed: {
+    queryParams() {
+      const queryParams = Object.assign({}, this.defaultQueryParams);
+      queryParams.resultOffset = this.permits.length;
+      return queryParams;
+    },
+    queryUrl() {
+      let url = BASE_REST_SERVICE_URL.slice();
+      for (let key in this.queryParams) {
+        const queryParam = "&" + key + "=" + this.queryParams[key];
+        url += queryParam;
+      }
+      return url;
+    }
+  },
+  methods: {
+    async fetchPermits() {
+      this.loading = true;
+      try {
+        const response = await axios.get(this.queryUrl);
+        const newPermits = response.data.features.map(permit => {
+          permit.attributes.ISSUEDATE = moment(permit.attributes.ISSUEDATE)
+            .utc()
+            .format(DATE_FORMAT);
+          return permit.attributes;
+        });
+        this.permits = this.permits.concat(newPermits);
+      } catch {
+        this.allowLoadMore = false;
+      } finally {
+        this.loading = false;
+      }
+    }
+  },
+  beforeMount() {
+    this.fetchPermits();
+  }
 };
 </script>
 
