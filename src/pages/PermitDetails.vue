@@ -25,6 +25,8 @@
               <dd>{{ permit.WORKDESCRIPTION }}</dd>
               <dt>Status</dt>
               <dd>{{ permit.STATUS }}</dd>
+              <dt>Contractor</dt>
+              <dd>{{ permit.CONTRACTORNAME }}</dd>
             </dl>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <appControls></appControls>
+    <appControls @contractorSearch="contractorSearch" @permitNumberSearch="permitNumberSearch"></appControls>
     <div class="container">
       <table v-show="permits.length > 0" role="grid" class="table text-center">
         <tbody>
@@ -49,6 +49,7 @@ export default {
       loading: false,
       allowLoadMore: true,
       permits: [],
+      whereClause: encodeURI("where=1=1"),
       defaultQueryParams: {
         outFields: "*",
         orderByFields: "issuedate+desc",
@@ -66,11 +67,8 @@ export default {
       return queryParams;
     },
     queryUrl() {
-      let url =
-        BASE_REST_SERVICE_URL.slice() +
-        encodeURI("where=1") +
-        encodeURI("=") +
-        "1";
+      let url = BASE_REST_SERVICE_URL.slice() + this.whereClause;
+
       for (let key in this.queryParams) {
         const queryParam =
           encodeURI("&") +
@@ -87,6 +85,7 @@ export default {
       this.loading = true;
       try {
         const response = await axios.get(this.queryUrl);
+        console.log(this.queryUrl);
         const newPermits = response.data.features.map(permit => {
           permit.attributes.ISSUEDATE = moment(permit.attributes.ISSUEDATE)
             .utc()
@@ -99,6 +98,25 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    contractorSearch(contractor) {
+      this.whereClause =
+        encodeURI("where=contractorname like'%") +
+        encodeURI(contractor) +
+        encodeURI("%'");
+      this.defaultQueryParams.resultRecordCount = 500;
+      this.permits = [];
+      this.fetchPermits();
+      this.allowLoadMore = false;
+    },
+    permitNumberSearch(permitNumber) {
+      this.whereClause =
+        encodeURI("where=permitnumber='") +
+        encodeURI(permitNumber) +
+        encodeURI("'");
+      this.permits = [];
+      this.fetchPermits();
+      this.allowLoadMore = false;
     }
   },
   beforeMount() {

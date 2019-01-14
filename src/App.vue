@@ -30,7 +30,14 @@ export default {
   }
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1550px) {
+  #app {
+    width: 70%;
+    margin: auto;
+  }
+}
+
+@media (min-width: 1600px) {
   #app {
     width: 60%;
     margin: auto;

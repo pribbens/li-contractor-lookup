@@ -2,21 +2,26 @@
   <div>
     <div class="container">
       <div class="row">
-        <form>
+        <form @submit.prevent>
           <div class="columns medium-12">
             <div class="bg-medium pam">
               <label for="input-contractor">Contractor Name</label>
               <div class="search">
                 <input
                   v-model="contractor"
-                  @keydown.enter.prevent="submitContractorSearch"
+                  @keydown.enter="submitContractorSearch"
                   id="input-contractor"
                   name="input-contractor"
                   type="text"
                   placeholder="Canduit Electric"
                   class="search-field"
                 >
-                <input type="submit" value="submit" class="search-submit">
+                <input
+                  @click="submitContractorSearch"
+                  type="submit"
+                  value="submit"
+                  class="search-submit"
+                >
               </div>
             </div>
           </div>
@@ -26,14 +31,19 @@
               <div class="search">
                 <input
                   v-model="permitNumber"
-                  @keydown.enter.prevent="submitPermitNumberSearch"
+                  @keydown.enter="submitPermitNumberSearch"
                   id="input-permit"
                   name="input-permit"
                   type="text"
                   placeholder="100000"
                   class="search-field"
                 >
-                <input type="submit" value="submit" class="search-submit">
+                <input
+                  @click="submitPermitNumberSearch"
+                  type="submit"
+                  value="submit"
+                  class="search-submit"
+                >
               </div>
             </div>
           </div>
@@ -49,9 +59,7 @@ export default {
   data() {
     return {
       permitNumber: "",
-      contractor: "",
-      startDate: "",
-      endDate: ""
+      contractor: ""
     };
   },
   methods: {

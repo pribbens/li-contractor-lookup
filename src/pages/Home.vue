@@ -39,11 +39,4 @@ export default {
     margin: auto;
   }
 }
-
-@media (min-width: 1350px) {
-  .table {
-    width: 100%;
-    margin: auto;
-  }
-}
 </style>
