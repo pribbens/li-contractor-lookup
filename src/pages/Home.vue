@@ -35,4 +35,18 @@ export default {
 .table {
   padding-bottom: 4em;
 }
+
+@media (min-width: 1350px) {
+  .table {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media (min-width: 1350px) {
+  .table {
+    width: 100%;
+    margin: auto;
+  }
+}
 </style>
