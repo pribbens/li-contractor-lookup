@@ -1,29 +1,27 @@
 # contractor-lookup
 
+This application allows contractors to track the statuses of their L+I permit applications.
+
 ## Project setup
-```
-yarn install
+
+```bash
+$ yarn install
 ```
 
 ### Compiles and hot-reloads for development
-```
-yarn run serve
+
+```bash
+$ yarn run serve
 ```
 
 ### Compiles and minifies for production
-```
-yarn run build
-```
 
-### Run your tests
-```
-yarn run test
+```bash
+$ yarn run build
 ```
 
 ### Lints and fixes files
-```
-yarn run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```bash
+$ yarn run lint
+```
