@@ -85,7 +85,6 @@ export default {
       this.loading = true;
       try {
         const response = await axios.get(this.queryUrl);
-        console.log(this.queryUrl);
         const newPermits = response.data.features.map(permit => {
           permit.attributes.ISSUEDATE = moment(permit.attributes.ISSUEDATE)
             .utc()
