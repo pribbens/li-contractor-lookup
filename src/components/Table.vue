@@ -2,7 +2,7 @@
   <div>
     <appControls></appControls>
     <div class="container">
-      <table v-if="permits.length > 0" role="grid" class="table text-center">
+      <table v-show="permits.length > 0" role="grid" class="table text-center">
         <tbody>
           <tr>
             <th scope="col">Permit Number</th>
@@ -26,11 +26,11 @@
       </table>
       <div class="text-center">
         <a
-          v-show="permits.length > 0 && allowLoadMore"
-          v-on:click.prevent="fetchPermits"
+          v-show="permits.length > 0 && allowLoadMore && !loading"
+          @click.prevent="fetchPermits"
         >Load More...</a>
       </div>
-      <h3 v-show="loading && !allowLoadMore" class="text-center">Loading please wait...</h3>
+      <h3 v-show="loading && allowLoadMore" class="text-center">Loading please wait...</h3>
     </div>
   </div>
 </template>

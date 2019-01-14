@@ -9,7 +9,7 @@
               <div class="search">
                 <input
                   v-model="contractor"
-                  v-on:keydown.enter.prevent="submitContractorSearch"
+                  @keydown.enter.prevent="submitContractorSearch"
                   id="input-contractor"
                   name="input-contractor"
                   type="text"
@@ -26,7 +26,7 @@
               <div class="search">
                 <input
                   v-model="permitNumber"
-                  v-on:keydown.enter.prevent="submitPermitNumberSearch"
+                  @keydown.enter.prevent="submitPermitNumberSearch"
                   id="input-permit"
                   name="input-permit"
                   type="text"
