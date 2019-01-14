@@ -2,6 +2,10 @@
 
 This application allows contractors to track the statuses of their L+I permit applications.
 
+## Requirements
+- Yarn
+- Vue Cli 3
+
 ## Project setup
 
 ```bash
@@ -24,4 +28,9 @@ $ yarn run build
 
 ```bash
 $ yarn run lint
+```
+### Push to production (Github Pages)
+
+```bash
+$ ./deploy.sh
 ```
