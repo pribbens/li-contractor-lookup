@@ -11,7 +11,7 @@
                 id="input-contractor"
                 name="input-contractor"
                 type="text"
-                placeholder="Ben Franklin"
+                placeholder="Canduit Electric"
                 class="search-field"
               >
               <input type="submit" value="submit" class="search-submit">
