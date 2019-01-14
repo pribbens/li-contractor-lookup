@@ -1,31 +1,37 @@
 <template>
-  <div class="container">
-    <table v-if="permits.length > 0" role="grid" class="table text-center">
-      <tbody>
-        <tr>
-          <th scope="col">Permit Number</th>
-          <th scope="col">Application Type</th>
-          <th scope="col">Address</th>
-          <th scope="col">Status</th>
-          <th scope="col">Issue Date</th>
-          <th scope="col">Permit Description</th>
-        </tr>
-        <tr v-for="permit in permits" :key="permit.id">
-          <td>{{ permit.PERMITNUMBER }}</td>
-          <td>{{ permit.APPLICATIONTYPE }}</td>
-          <td>{{ permit.ADDRESS }}</td>
-          <td>{{ permit.STATUS }}</td>
-          <td>{{ permit.ISSUEDATE }}</td>
-          <td>
-            <router-link :to="{ name: 'permit', params: { id: permit.PERMITNUMBER } }">Link</router-link>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-center">
-      <a v-show="permits.length > 0 && allowLoadMore" v-on:click.prevent="fetchPermits">Load More...</a>
+  <div>
+    <appControls></appControls>
+    <div class="container">
+      <table v-if="permits.length > 0" role="grid" class="table text-center">
+        <tbody>
+          <tr>
+            <th scope="col">Permit Number</th>
+            <th scope="col">Application Type</th>
+            <th scope="col">Address</th>
+            <th scope="col">Status</th>
+            <th scope="col">Issue Date</th>
+            <th scope="col">Permit Description</th>
+          </tr>
+          <tr v-for="permit in permits" :key="permit.id">
+            <td>{{ permit.PERMITNUMBER }}</td>
+            <td>{{ permit.APPLICATIONTYPE }}</td>
+            <td>{{ permit.ADDRESS }}</td>
+            <td>{{ permit.STATUS }}</td>
+            <td>{{ permit.ISSUEDATE }}</td>
+            <td>
+              <router-link :to="{ name: 'permit', params: { id: permit.PERMITNUMBER } }">Link</router-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <a
+          v-show="permits.length > 0 && allowLoadMore"
+          v-on:click.prevent="fetchPermits"
+        >Load More...</a>
+      </div>
+      <h3 v-show="loading && !allowLoadMore" class="text-center">Loading please wait...</h3>
     </div>
-    <h3 v-show="loading && !allowLoadMore" class="text-center">Loading please wait...</h3>
   </div>
 </template>
 
@@ -34,6 +40,7 @@ import axios from "axios";
 import moment from "moment";
 
 import { DATE_FORMAT, BASE_REST_SERVICE_URL } from "../utils";
+import Controls from "./Controls";
 
 export default {
   name: "Table",
@@ -59,9 +66,17 @@ export default {
       return queryParams;
     },
     queryUrl() {
-      let url = BASE_REST_SERVICE_URL.slice() + "where=1%3D1";
+      let url =
+        BASE_REST_SERVICE_URL.slice() +
+        encodeURI("where=1") +
+        encodeURI("=") +
+        "1";
       for (let key in this.queryParams) {
-        const queryParam = "&" + key + "=" + this.queryParams[key];
+        const queryParam =
+          encodeURI("&") +
+          encodeURI(key) +
+          encodeURI("=") +
+          encodeURI(this.queryParams[key]);
         url += queryParam;
       }
       return url;
@@ -88,6 +103,9 @@ export default {
   },
   beforeMount() {
     this.fetchPermits();
+  },
+  components: {
+    appControls: Controls
   }
 };
 </script>

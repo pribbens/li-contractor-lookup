@@ -7,19 +7,16 @@
         reflected on site
       </p>
     </div>
-    <appControls></appControls>
     <appTable class="table"></appTable>
   </div>
 </template>
 
 <script>
-import Controls from "../components/Controls";
 import Table from "../components/Table";
 
 export default {
   name: "app",
   components: {
-    appControls: Controls,
     appTable: Table
   }
 };
