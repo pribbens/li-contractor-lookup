@@ -65,6 +65,7 @@ export default {
       message: false,
       permits: [],
       whereClause: encodeURI("where=1=1"),
+      // The query seems to run signicantly slower without including these
       defaultQueryParams: {
         outFields: "*",
         orderByFields: "issuedate+desc",
@@ -77,13 +78,15 @@ export default {
   },
   computed: {
     queryParams() {
+      // Update the resultOffset of the query based on the length of permits
       const queryParams = Object.assign({}, this.defaultQueryParams);
       queryParams.resultOffset = this.permits.length;
       return queryParams;
     },
     queryUrl() {
-      let url = BASE_REST_SERVICE_URL.slice() + this.whereClause;
+      let url = BASE_REST_SERVICE_URL + this.whereClause;
 
+      // Build the queryUrl from the queryParams
       for (let key in this.queryParams) {
         const queryParam =
           encodeURI("&") +
@@ -105,6 +108,7 @@ export default {
         const response = await axios.get(this.queryUrl);
         const newPermits = response.data.features.map(permit => {
           permit.attributes.ISSUEDATE = moment(permit.attributes.ISSUEDATE)
+            // Format the date to be human readable
             .utc()
             .format(DATE_FORMAT);
           return permit.attributes;

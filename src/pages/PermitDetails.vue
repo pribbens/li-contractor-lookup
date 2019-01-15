@@ -46,6 +46,7 @@ export default {
     return {
       loading: false,
       permit: {},
+      // The query seems to run signicantly slower without including these
       queryParams: {
         outFields: "*",
         resultRecordCount: 1,
@@ -60,11 +61,12 @@ export default {
     },
     queryUrl() {
       let url =
-        BASE_REST_SERVICE_URL.slice() +
+        BASE_REST_SERVICE_URL +
         encodeURI("where=permitnumber = ") +
         encodeURI("'") +
         encodeURI(this.permitnumber) +
         encodeURI("'");
+      // Build the queryUrl from the queryParams
       for (let key in this.queryParams) {
         const queryParam = "&" + key + "=" + this.queryParams[key];
         url += queryParam;
@@ -78,6 +80,7 @@ export default {
       const response = await axios.get(this.queryUrl);
       const permit = response.data.features[0];
       permit.attributes.ISSUEDATE = moment(permit.attributes.ISSUEDATE)
+        // Format the date to be human readable
         .utc()
         .format(DATE_FORMAT);
       this.permit = permit.attributes;
