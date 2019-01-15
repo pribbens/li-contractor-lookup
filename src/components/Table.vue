@@ -14,7 +14,7 @@
     </table>
     <appControls @contractorSearch="contractorSearch" @permitNumberSearch="permitNumberSearch"></appControls>
     <div class="container">
-      <table v-show="permits.length > 0" role="grid" class="table text-center">
+      <table v-show="permits.length > 0 && !loading" role="grid" class="table text-center">
         <tbody>
           <tr>
             <th scope="col">Permit Number</th>
@@ -127,9 +127,10 @@ export default {
         encodeURI("%'");
       this.defaultQueryParams.resultRecordCount = 500;
       this.permits = [];
-      this.fetchPermits();
-      this.allowLoadMore = false;
-      this.message = true;
+      this.fetchPermits().then(() => {
+        this.allowLoadMore = false;
+        this.message = true;
+      });
     },
     permitNumberSearch(permitNumber) {
       this.whereClause =
@@ -137,9 +138,10 @@ export default {
         encodeURI(permitNumber) +
         encodeURI("'");
       this.permits = [];
-      this.fetchPermits();
-      this.allowLoadMore = false;
-      this.message = true;
+      this.fetchPermits().then(() => {
+        this.allowLoadMore = false;
+        this.message = true;
+      });
     }
   },
   beforeMount() {
@@ -165,6 +167,11 @@ export default {
     overflow-x: auto;
     display: block;
   }
+}
+
+.service-update {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .message {
