@@ -14,7 +14,8 @@ export default {
 
 <style scoped>
 .outer-container {
-  background-color: #f0f0f0;
+  background-color: white;
+  height: 100%;
 }
 
 @media (min-width: 400px) {

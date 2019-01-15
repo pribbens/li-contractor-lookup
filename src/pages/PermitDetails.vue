@@ -95,14 +95,12 @@ export default {
 
 <style scoped>
 .vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 30%;
-  transform: translate(0, -30%);
+  margin: auto;
+  margin-top: 8em;
 }
 
 .row-titles {
-  background-color: #f0f0f0;
+  background-color: rgb(197, 197, 197);
   padding: 0.3em 1.3em;
   font-size: 1.78571rem;
   font-weight: bolder;
@@ -116,10 +114,14 @@ export default {
   letter-spacing: 0;
 }
 
+#details {
+  background-color: #eeeded;
+}
+
 .ui-overlay-a,
 .ui-page-theme-a,
 .ui-page-theme-a .ui-panel-wrapper {
-  background: #fff;
+  background: #f0f0f0;
 }
 
 .ui-mobile,
@@ -144,6 +146,12 @@ dl {
 
 dl dd {
   margin: 0;
+}
+
+@media (max-width: 550px) {
+  .vertical-center {
+    margin-top: 1em;
+  }
 }
 </style>
 

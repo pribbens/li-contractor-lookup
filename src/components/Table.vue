@@ -170,6 +170,10 @@ export default {
 .message {
   margin-left: 33.33%;
 }
+
+.table {
+  margin-top: 0;
+}
 </style>
 
 
