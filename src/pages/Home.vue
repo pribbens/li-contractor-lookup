@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card-divider text-center">
-      <h5>Contractors can use this tool to look up the statuses of their active permits.</h5>
+      <h5>Contractors can use this tool to look up the statuses of their permits.</h5>
       <h5>
         <b>NOTE:</b> Actions made in the last 24 hours may not be
         reflected on site
