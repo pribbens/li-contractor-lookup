@@ -8,7 +8,6 @@
             <div class="search">
               <input
                 v-model="contractor"
-                @keydown.enter="submitContractorSearch"
                 id="input-contractor"
                 name="input-contractor"
                 type="text"
