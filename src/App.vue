@@ -32,21 +32,21 @@ export default {
 
 @media (min-width: 1100px) {
   .app-container {
-    width: 70%;
+    width: 90%;
     margin: auto;
   }
 }
 
 @media (min-width: 1650px) {
   .app-container {
-    width: 60%;
+    width: 70%;
     margin: auto;
   }
 }
 
 @media (min-width: 1700px) {
   .app-container {
-    width: 40%;
+    width: 60%;
     margin: auto;
   }
 }
