@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.1",
     "moment": "^2.23.0",
+    "set-value": "2.0.1",
     "vue": "^2.5.21",
     "vue-router": "^3.0.2"
   },
