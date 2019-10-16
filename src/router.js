@@ -8,8 +8,7 @@ Vue.use(Router);
 
 export default new Router({
   mode: "history",
-  // The base of gh-pages is not '/', but '/li-contractor-lookup/, without this gh-pages doesn't load
-  base: process.env.NODE_ENV === "production" ? "/li-contractor-lookup/" : "/",
+  base: "/",
   routes: [
     {
       path: "/",
