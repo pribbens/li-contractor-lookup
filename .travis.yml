@@ -1,0 +1,31 @@
+language: node_js
+
+node_js:
+  - "10"
+
+script: npm run build
+
+before_deploy:
+  - rm -rf node_modules
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: 'contractor-permit-lookup'
+    upload-dir: 'prod'
+    on:
+      branch: master
+    local_dir: dist
+    skip_cleanup: true
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: 'contractor-permit-lookup'
+    upload-dir: 'staging'
+    on:
+      branch: staging
+    local_dir: dist
+    skip_cleanup: true
+  
+  
