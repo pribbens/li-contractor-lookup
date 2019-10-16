@@ -8,7 +8,7 @@ Vue.use(Router);
 
 export default new Router({
   mode: "history",
-  base: "index.html",
+  base: "/li/contractor-permit-lookup/",
   routes: [
     {
       path: "/",
