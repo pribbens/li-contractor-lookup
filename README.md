@@ -1,4 +1,4 @@
-# Contractor Permit Lookip
+# Contractor Permit Lookup
 
 This application allows contractors to track the statuses of their L+I permit applications.
 
